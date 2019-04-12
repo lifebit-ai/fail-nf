@@ -51,6 +51,7 @@ process intermitentFailProcess {
   # Simulate the time the processes takes to finish
   timeToWait=\$(shuf -i ${params.intermitentProcessTimeRange} -n 1)
   sleep \$timeToWait
+  echo 'some text for the .command.log file'
   # Test if number if even. If true, fail with an exit code 
   # equal to the number
   if [ \$((${x}%2)) -eq 0 ] && [ "${params.alwaysPassIntermitentProcess}" = false ]; then
@@ -69,6 +70,7 @@ process criticalProcess {
 
   script:
   """
+  echo 'some text for the .command.log file'
   if [ "${params.abortCriticalProcess}" = true ]; then
     exit 666
   fi
@@ -88,6 +90,7 @@ process missingOutputFileProcess {
   # Simulate the time the processes takes to finish
   timeToWait=\$(shuf -i ${params.missingOutputProcessTimeRange} -n 1)
   sleep \$timeToWait
+  echo 'some text for the .command.log file'
   if [ "${params.forceMissingOutputFail}" = false ]; then
     touch file_\$timeToWait.mod
   fi
